@@ -1,0 +1,21 @@
+repositories {
+  mavenCentral()
+}
+
+apply plugin: 'java'
+
+version = '0.1.0'
+
+ext {
+  slf4jVersion = '1.7.25'
+  junitVersion = '4.12'
+}
+
+dependencies {
+  compile "org.slf4j:slf4j-api:$slf4jVersion"
+  runtime "org.slf4j:slf4j-simple:$slf4jVersion"
+
+  testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
+
+  testCompile "junit:junit:$junitVersion"
+}
