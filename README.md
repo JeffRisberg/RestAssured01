@@ -1,4 +1,5 @@
 # RestAssured01
 
-Example
+Example of testing a REST-based api.
+
 
