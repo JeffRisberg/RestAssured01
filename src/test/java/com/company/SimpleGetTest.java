@@ -4,7 +4,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.simple.JSONObject;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class SimpleGetTest {
 
@@ -46,5 +49,28 @@ public class SimpleGetTest {
     // we have recieved from the server
     String responseBody = response.getBody().asString();
     System.out.println("Response Body is =>  " + responseBody);
+  }
+
+  @Test
+  public void GetWeatherDetailsInvalidCity() {
+    RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
+    RequestSpecification httpRequest = RestAssured.given();
+    Response response = httpRequest.get("/78789798798");
+    int statusCode = response.getStatusCode();
+    assertEquals("Correct status code returned", 200, statusCode);
+  }
+
+  @Test
+  public void Get() {
+
+// JSONObject is a class that represents a Simple JSON.
+// We can add Key - Value pairs using the put method
+    JSONObject requestParams = new JSONObject();
+    requestParams.put("FirstName", "Virender");
+    requestParams.put("LastName", "Singh");
+
+    requestParams.put("UserName", "simpleuser001");
+    requestParams.put("Password", "password1");
+    requestParams.put("Email", "someuser@gmail.com");
   }
 }
