@@ -3,6 +3,10 @@ package com.company;
 import io.restassured.RestAssured;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItems;
+
 public class SimplePostTest {
 
   @Test

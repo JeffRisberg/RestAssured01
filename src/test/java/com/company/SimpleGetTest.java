@@ -7,6 +7,9 @@ import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 public class SimpleGetTest {
@@ -58,6 +61,17 @@ public class SimpleGetTest {
     Response response = httpRequest.get("/78789798798");
     int statusCode = response.getStatusCode();
     assertEquals("Correct status code returned", 200, statusCode);
+  }
+
+  @Test
+  public void example() {
+
+    when().
+      get("http://restapi.demoqa.com/utilities/weather/city/{city}", "Hyderabad").
+      then().
+      statusCode(200).
+      body("City", equalTo("Hyderabad"),
+        "Temperature", endsWith("celsius"));
   }
 
   @Test
