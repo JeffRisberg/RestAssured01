@@ -2,6 +2,7 @@ package com.company;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -30,13 +31,14 @@ public class SimplePostTest {
   public void MakePostWithBody() {
     RestAssured.baseURI = "https://www.example.com";
 
-    given()
-      .contentType(ContentType.JSON)
-      .body(payload)
-      .post("/some/resource")
-      .then()
-      .statusCode(200)
-      .extract()
-      .response();
+    Response response =
+      given()
+        .contentType(ContentType.JSON)
+        .body(payload)
+        .post("/some/resource")
+        .then()
+        .statusCode(200)
+        .extract()
+        .response();
   }
 }
