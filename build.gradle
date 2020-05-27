@@ -8,7 +8,7 @@ version = '0.1.0'
 
 ext {
   slf4jVersion = '1.7.25'
-  junitVersion = '4.12'
+  junitVersion = '4.13'
 }
 
 dependencies {
