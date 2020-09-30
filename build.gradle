@@ -7,15 +7,16 @@ apply plugin: 'java'
 version = '0.1.0'
 
 ext {
-  slf4jVersion = '1.7.25'
+  slf4jVersion = '1.7.26'
   junitVersion = '4.13'
+  restAssuredVersion = '4.1.2'
 }
 
 dependencies {
   compile "org.slf4j:slf4j-api:$slf4jVersion"
   runtime "org.slf4j:slf4j-simple:$slf4jVersion"
 
-  testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.1.2'
+  testCompile "io.rest-assured:rest-assured:$restAssuredVersion"
 
   compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
