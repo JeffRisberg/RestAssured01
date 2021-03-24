@@ -14,25 +14,21 @@ import static org.testng.Assert.assertEquals;
 
 public class SimpleGetTest {
 
-    @BeforeTest
-    public static void setup() {
-      RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
-    }
+  @BeforeTest
+  public static void setup() {
+    RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+  }
 
-    @Test
-    public void getRequest() {
-      Response response = given()
-              .contentType(ContentType.JSON)
-              .when()
-              .get("/posts")
-              .then()
-              .extract().response();
+  @Test
+  public void getRequest() {
+    Response response =
+        given().contentType(ContentType.JSON).when().get("/posts").then().extract().response();
 
-      assertEquals(200, response.statusCode());
-      assertEquals("qui est esse", response.jsonPath().getString("title[1]"));
-    }
+    assertEquals(200, response.statusCode());
+    assertEquals("qui est esse", response.jsonPath().getString("title[1]"));
+  }
 
-  //@Test
+  // @Test
   public void GetWeatherDetails() {
     // Specify the base URL to the RESTful web service
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
@@ -52,7 +48,7 @@ public class SimpleGetTest {
     System.out.println("Response Body is =>  " + responseBody);
   }
 
-  //@Test
+  // @Test
   public void GetMoreWeatherDetails() {
     // Specify the base URL to the RESTful web service
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
@@ -72,7 +68,7 @@ public class SimpleGetTest {
     System.out.println("Response Body is =>  " + responseBody);
   }
 
-  //@Test
+  // @Test
   public void GetWeatherDetailsInvalidCity() {
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
     RequestSpecification httpRequest = given();
@@ -81,10 +77,10 @@ public class SimpleGetTest {
     assertEquals(200, statusCode, "Correct status code returned");
   }
 
-  //@Test
+  // @Test
   public void example() {
 
-      /*
+    /*
     when().
       get("http://restapi.demoqa.com/utilities/weather/city/{city}", "Hyderabad").
       then().
@@ -94,11 +90,11 @@ public class SimpleGetTest {
        */
   }
 
-  //@Test
+  // @Test
   public void Get() {
 
-// JSONObject is a class that represents a Simple JSON.
-// We can add Key - Value pairs using the put method
+    // JSONObject is a class that represents a Simple JSON.
+    // We can add Key - Value pairs using the put method
     JSONObject requestParams = new JSONObject();
     requestParams.put("FirstName", "Virender");
     requestParams.put("LastName", "Singh");
