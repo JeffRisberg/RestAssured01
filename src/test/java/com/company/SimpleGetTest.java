@@ -1,20 +1,38 @@
 package com.company;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
-import org.junit.Test;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
+import static io.restassured.RestAssured.given;
+import static org.testng.Assert.assertEquals;
 
 public class SimpleGetTest {
 
-  @Test
+    @BeforeTest
+    public static void setup() {
+      RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+    }
+
+    @Test
+    public void getRequest() {
+      Response response = given()
+              .contentType(ContentType.JSON)
+              .when()
+              .get("/posts")
+              .then()
+              .extract().response();
+
+      assertEquals(200, response.statusCode());
+      assertEquals("qui est esse", response.jsonPath().getString("title[1]"));
+    }
+
+  //@Test
   public void GetWeatherDetails() {
     // Specify the base URL to the RESTful web service
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
@@ -22,7 +40,7 @@ public class SimpleGetTest {
     // Get the RequestSpecification of the request that you want to sent
     // to the server. The server is specified by the BaseURI that we have
     // specified in the above step.
-    RequestSpecification httpRequest = RestAssured.given();
+    RequestSpecification httpRequest = given();
 
     // Make a request to the server by specifying the method Type and the method URL.
     // This will return the Response from the server. Store the response in a variable.
@@ -34,7 +52,7 @@ public class SimpleGetTest {
     System.out.println("Response Body is =>  " + responseBody);
   }
 
-  @Test
+  //@Test
   public void GetMoreWeatherDetails() {
     // Specify the base URL to the RESTful web service
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
@@ -42,7 +60,7 @@ public class SimpleGetTest {
     // Get the RequestSpecification of the request that you want to sent
     // to the server. The server is specified by the BaseURI that we have
     // specified in the above step.
-    RequestSpecification httpRequest = RestAssured.given();
+    RequestSpecification httpRequest = given();
 
     // Make a request to the server by specifying the method Type and the method URL.
     // This will return the Response from the server. Store the response in a variable.
@@ -54,27 +72,29 @@ public class SimpleGetTest {
     System.out.println("Response Body is =>  " + responseBody);
   }
 
-  @Test
+  //@Test
   public void GetWeatherDetailsInvalidCity() {
     RestAssured.baseURI = "http://restapi.demoqa.com/utilities/weather/city";
-    RequestSpecification httpRequest = RestAssured.given();
+    RequestSpecification httpRequest = given();
     Response response = httpRequest.get("/78789798798");
     int statusCode = response.getStatusCode();
-    assertEquals("Correct status code returned", 200, statusCode);
+    assertEquals(200, statusCode, "Correct status code returned");
   }
 
-  @Test
+  //@Test
   public void example() {
 
+      /*
     when().
       get("http://restapi.demoqa.com/utilities/weather/city/{city}", "Hyderabad").
       then().
       statusCode(200).
       body("City", equalTo("Hyderabad"),
         "Temperature", endsWith("celsius"));
+       */
   }
 
-  @Test
+  //@Test
   public void Get() {
 
 // JSONObject is a class that represents a Simple JSON.
