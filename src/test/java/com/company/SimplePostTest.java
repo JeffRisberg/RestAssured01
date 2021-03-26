@@ -17,28 +17,33 @@ public class SimplePostTest {
           + "}";
 
   @Test
-  public void GetWeatherDetails() {
-    RestAssured.baseURI = "https://www.example.com";
+  public void MakeBasicPost() {
+    RestAssured.baseURI = "https://www.postman-echo.com";
 
-    given()
-        .urlEncodingEnabled(true)
-        .param("username", "user@site.com")
-        .param("password", "Pas54321")
-        .header("Accept", ContentType.JSON.getAcceptHeader())
-        .post("/login")
-        .then()
-        .statusCode(200);
+    Response response =
+        given()
+            .urlEncodingEnabled(true)
+            .param("username", "user@site.com")
+            .param("password", "Pas54321")
+            .header("Accept", "*/*")
+            .post("/post")
+            .then()
+            //.statusCode(200)
+            .extract()
+            .response();
+    System.out.println(response.body().print());
   }
 
   @Test
   public void MakePostWithBody() {
-    RestAssured.baseURI = "https://www.example.com";
+    RestAssured.baseURI = "https://www.postman-echo.com";
 
     Response response =
         given()
+            .urlEncodingEnabled(true)
             .contentType(ContentType.JSON)
             .body(payload)
-            .post("/some/resource")
+            .post("/post")
             .then()
             .statusCode(200)
             .extract()

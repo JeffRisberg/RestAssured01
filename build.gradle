@@ -14,11 +14,22 @@ ext {
 
 dependencies {
   compile "org.slf4j:slf4j-api:$slf4jVersion"
-  runtime "org.slf4j:slf4j-simple:$slf4jVersion"
+  compile "org.slf4j:slf4j-simple:$slf4jVersion"
 
   testCompile "io.rest-assured:rest-assured:$restAssuredVersion"
 
-  compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+  testCompile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
   testImplementation "org.testng:testng:$testNGVersion"
+}
+
+
+test {
+  useTestNG()
+  scanForTestClasses = false
+  include '**/*'
+
+  beforeTest { descriptor ->
+    logger.lifecycle("Gradle running test: ${descriptor}")
+  }
 }
