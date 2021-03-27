@@ -9,41 +9,55 @@ import static io.restassured.RestAssured.given;
 
 public class SimplePostTest {
 
-  private static String payload =
-      "{\n"
-          + "  \"description\": \"Some Description\",\n"
-          + "  \"id\": \"Some id\",\n"
-          + "  \"name\": \"Some name\"\n"
-          + "}";
-
   @Test
-  public void MakeBasicPost() {
-    RestAssured.baseURI = "https://www.postman-echo.com";
+  public void makeBasicPost() {
+    RestAssured.baseURI = "http://www.scooterlabs.com/echo";
 
     Response response =
         given()
             .urlEncodingEnabled(true)
             .param("username", "user@site.com")
             .param("password", "Pas54321")
-            .header("Accept", "*/*")
-            .post("/post")
+            .post()
             .then()
-            //.statusCode(200)
+            .statusCode(200)
             .extract()
             .response();
-    System.out.println(response.body().print());
   }
 
   @Test
-  public void MakePostWithBody() {
-    RestAssured.baseURI = "https://www.postman-echo.com";
+  public void makePostWithNoBody() {
+    RestAssured.baseURI = "http://www.scooterlabs.com/echo";
+
+    Response response =
+        given()
+            .urlEncodingEnabled(true)
+            .contentType(ContentType.JSON)
+            .body("")
+            .post()
+            .then()
+            .statusCode(200)
+            .extract()
+            .response();
+  }
+
+  @Test
+  public void makePostWithBody() {
+    RestAssured.baseURI = "http://www.scooterlabs.com/echo";
+
+    String payload =
+        "{\n"
+            + "  \"description\": \"Some Description\",\n"
+            + "  \"id\": \"Some id\",\n"
+            + "  \"name\": \"Some name\"\n"
+            + "}";
 
     Response response =
         given()
             .urlEncodingEnabled(true)
             .contentType(ContentType.JSON)
             .body(payload)
-            .post("/post")
+            .post("")
             .then()
             .statusCode(200)
             .extract()
