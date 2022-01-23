@@ -39,7 +39,7 @@ public class SimpleGetTest {
 
     assertEquals(response.statusCode(), 200, "Incorrect status code");
 
-    assertEquals(response.jsonPath().getString("name"), bostonName, "incorrect latitude");
+    assertEquals(response.jsonPath().getString("name"), bostonName, "Incorrect name");
 
     assertEquals(response.jsonPath().getString("coord.lat"), bostonLat, "Incorrect latitude");
     assertEquals(response.jsonPath().getString("coord.lon"), bostonLon, "Incorrect longitude");
@@ -52,6 +52,9 @@ public class SimpleGetTest {
     RequestSpecification httpRequest = given().param("q", bostonName).param("appid", apiKey);
 
     Response response = httpRequest.request(Method.GET, "/weather");
+
+    int statusCode = response.getStatusCode();
+    assertEquals(statusCode, 200, "Incorrect status code");
 
     String responseBody = response.getBody().asString();
     System.out.println("Response Body is =>  " + responseBody);
@@ -66,6 +69,6 @@ public class SimpleGetTest {
     Response response = httpRequest.get("/weather");
 
     int statusCode = response.getStatusCode();
-    assertEquals(404, statusCode, "Incorrect status code");
+    assertEquals(statusCode, 404, "Incorrect status code");
   }
 }

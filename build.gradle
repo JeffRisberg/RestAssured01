@@ -9,7 +9,7 @@ version = '0.1.0'
 ext {
   slf4jVersion = '1.7.26'
   testNGVersion = '7.3.0'
-  restAssuredVersion = '4.3.3'
+  restAssuredVersion = '4.5.0'
 }
 
 dependencies {
